@@ -1,33 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.nav_text {
-  @apply font-inter font-normal text-primary text-2xl;
-}
-
-.banner_h1 {
-  @apply font-inter font-extrabold text-3xl lg:text-6xl text-white;
-}
-
-.banner_h2 {
-  @apply font-inter font-medium text-xl lg:text-3xl text-white;
-}
-
-.h2 {
-  @apply font-inter font-medium text-xl lg:text-3xl text-primary;
-}
-
-.white_btn {
-  @apply w-44 h-14 px-6 py-2 rounded-full bg-white text-primary font-medium text-center text-xl lg:text-3xl font-inter;
-}
-
-.home_card {
-  @apply p-2.5 bg-white rounded-2xl shadow flex-col justify-center items-start gap-2.5 inline-flex;
-}
-
-.home_card_img {
-  @apply w-80 h-72 rounded-3xl;
-}

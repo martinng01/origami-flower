@@ -11,11 +11,8 @@ const config: Config = {
       fontFamily: {
         inter: ["Inter", "sans-serif"],
       },
-      colors: {
-        primary: "#424242",
-      },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };
 export default config;
