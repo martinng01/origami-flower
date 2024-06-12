@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="light">
       <body className={inter.className}>
         <Nav />
         <main className="app">{children}</main>
