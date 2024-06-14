@@ -4,7 +4,7 @@ import React from "react";
 const Hero = () => {
   return (
     <section
-      className="hero min-h-screen"
+      className="hero min-h-[60vh]"
       style={{
         backgroundImage: "url(/assets/images/flowers.png)",
       }}

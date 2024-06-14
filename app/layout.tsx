@@ -14,6 +14,9 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="en" data-theme="light">
       <body className={inter.className}>
+        <div className="main">
+          <div className="gradient" />
+        </div>
         <Nav />
         <main className="app">{children}</main>
       </body>
