@@ -1,7 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import { getCategories } from "@services";
 
-const Nav = () => {
+const Nav = async () => {
+  const categories = await getCategories();
+
   return (
     <div className="drawer">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -38,88 +41,36 @@ const Nav = () => {
           {/* Navbar Items */}
           <div className="flex-none hidden lg:block">
             <div className="flex flex-0">
-              <div className="dropdown dropdown-hover">
-                <Link
-                  href={"/flower"}
-                  role="button"
-                  className="btn btn-ghost font-normal"
-                >
-                  Flower
-                </Link>
-                <ul className="dropdown-content menu shadow bg-base-100 rounded-box w-52">
-                  <li>
-                    <div className="flex">
-                      <Image
-                        src="/assets/images/flowers/bellflower.png"
-                        alt="bellflower"
-                        width="50"
-                        height="50"
-                        className="rounded-2xl"
-                      />
-                      <Link href={"/flower/bellflower"} className="px-2">
-                        Bellflower
-                      </Link>
-                    </div>
-                  </li>
-                  <li>
-                    <a>Item 2</a>
-                  </li>
-                </ul>
-              </div>
-              <div className="dropdown dropdown-hover">
-                <Link
-                  href={"/rose"}
-                  role="button"
-                  className="btn btn-ghost font-normal"
-                >
-                  Rose
-                </Link>
-              </div>
-              <div className="dropdown dropdown-hover">
-                <Link
-                  href={"/base"}
-                  role="button"
-                  className="btn btn-ghost font-normal"
-                >
-                  Base
-                </Link>
-              </div>
-              <div className="dropdown dropdown-hover">
-                <Link
-                  href={"/calyx"}
-                  role="button"
-                  className="btn btn-ghost font-normal"
-                >
-                  Calyx
-                </Link>
-              </div>
-              <div className="dropdown dropdown-hover">
-                <Link
-                  href={"/leaf"}
-                  role="button"
-                  className="btn btn-ghost font-normal"
-                >
-                  Leaf
-                </Link>
-              </div>
-              <div className="dropdown dropdown-hover">
-                <Link
-                  href={"/stem"}
-                  role="button"
-                  className="btn btn-ghost font-normal"
-                >
-                  Stem
-                </Link>
-              </div>
-              <div className="dropdown dropdown-hover">
-                <Link
-                  href={"/vase"}
-                  role="button"
-                  className="btn btn-ghost font-normal"
-                >
-                  Vase
-                </Link>
-              </div>
+              {categories.map((category) => (
+                <div className="dropdown dropdown-hover" key={category.node.id}>
+                  <Link
+                    href={category.node.slug}
+                    role="button"
+                    className="btn btn-ghost font-normal"
+                  >
+                    {category.node.name}
+                  </Link>
+                  <ul className="dropdown-content menu shadow bg-base-100 rounded-box w-52">
+                    {category.node.posts.map((post) => (
+                      <li key={post.id}>
+                        <Link
+                          href={category.node.slug + "/" + post.slug}
+                          className="flex px-2"
+                        >
+                          <Image
+                            src={post.featuredImage.url}
+                            alt={post.title}
+                            width="50"
+                            height="50"
+                            className="rounded-2xl"
+                          />
+                          {post.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
           </div>
         </div>

@@ -4,27 +4,53 @@ import { parse } from "graphql";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT;
 
-type CategoryQuery = {
-  categories: {
-    name: string;
-    description: string;
-    defaultImage: {
-      url: string;
-    };
-    slug: string;
+export type CategoryQuery = {
+  categoriesConnection: {
+    edges: {
+      node: {
+        name: string;
+        slug: string;
+        posts: {
+          title: string;
+          featuredImage: {
+            url: string;
+          };
+          slug: string;
+          id: number;
+        }[];
+        defaultImage: {
+          url: string;
+        };
+        description: string;
+        id: number;
+      };
+    }[];
   };
 };
 
-export const getPosts = async () => {
+export const getCategories = async () => {
   const query: TypedDocumentNode<CategoryQuery, Record<any, never>> = parse(gql`
     query Categories {
-      categories {
-        name
-        description
-        defaultImage {
-          url
+      categoriesConnection {
+        edges {
+          node {
+            name
+            slug
+            posts {
+              title
+              featuredImage {
+                url
+              }
+              slug
+              id
+            }
+            defaultImage {
+              url
+            }
+            description
+            id
+          }
         }
-        slug
       }
     }
   `);
@@ -35,5 +61,5 @@ export const getPosts = async () => {
 
   const result = await request(graphqlAPI as string, query);
 
-  return result.categories;
+  return result.categoriesConnection.edges;
 };
