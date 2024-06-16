@@ -34,21 +34,21 @@ export const getCategories = async () => {
       categoriesConnection {
         edges {
           node {
-            name
             slug
-            posts {
-              title
-              featuredImage {
-                url
-              }
-              slug
-              id
-            }
+            name
             defaultImage {
               url
             }
             description
             id
+            posts {
+              featuredImage {
+                url
+              }
+              title
+              id
+              slug
+            }
           }
         }
       }

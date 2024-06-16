@@ -5,6 +5,8 @@ import { getCategories } from "@services";
 const Nav = async () => {
   const categories = await getCategories();
 
+  console.log(categories[1].node);
+
   return (
     <div className="drawer">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
