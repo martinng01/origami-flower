@@ -5,8 +5,6 @@ import { getCategories } from "@services";
 const Nav = async () => {
   const categories = await getCategories();
 
-  console.log(categories[1].node);
-
   return (
     <div className="drawer">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -44,7 +42,10 @@ const Nav = async () => {
           <div className="flex-none hidden lg:block">
             <div className="flex flex-0">
               {categories.map((category) => (
-                <div className="dropdown dropdown-hover" key={category.node.id}>
+                <div
+                  className="dropdown dropdown-end dropdown-hover"
+                  key={category.node.id}
+                >
                   <Link
                     href={category.node.slug}
                     role="button"

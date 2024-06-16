@@ -1,8 +1,13 @@
-import { request, gql } from "graphql-request";
+import { gql, GraphQLClient } from "graphql-request";
 import type { TypedDocumentNode } from "@graphql-typed-document-node/core";
 import { parse } from "graphql";
 
-const graphqlAPI = process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT;
+const graphqlClient = new GraphQLClient(
+  process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT as string,
+  {
+    cache: "no-store",
+  }
+);
 
 export type CategoryQuery = {
   categoriesConnection: {
@@ -34,32 +39,28 @@ export const getCategories = async () => {
       categoriesConnection {
         edges {
           node {
-            slug
             name
-            defaultImage {
-              url
-            }
-            description
-            id
+            slug
             posts {
+              title
               featuredImage {
                 url
               }
-              title
-              id
               slug
+              id
             }
+            defaultImage {
+              url
+            }
+            id
+            description
           }
         }
       }
     }
   `);
 
-  if (!graphqlAPI) {
-    console.log("NEXT_PUBLIC_HYGRAPH_ENDPOINT not set!");
-  }
-
-  const result = await request(graphqlAPI as string, query);
+  const result = await graphqlClient.request(query);
 
   return result.categoriesConnection.edges;
 };

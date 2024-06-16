@@ -16,7 +16,7 @@ const Hero = () => {
             Home of Origami Paper Flowers
           </h1>
           <p className="mb-5">A redesign of the website</p>
-          <button className="btn btn-primary">
+          <button className="btn btn-primary rounded-full w-40">
             <Link href="http://www.origami-flower.org/index.php">Here</Link>
           </button>
         </div>
