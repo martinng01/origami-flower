@@ -47,9 +47,10 @@ const Nav = async () => {
                   key={category.node.id}
                 >
                   <Link
-                    href={category.node.slug}
+                    href={`/${category.node.slug}`}
                     role="button"
                     className="btn btn-ghost font-normal"
+                    replace
                   >
                     {category.node.name}
                   </Link>
@@ -57,8 +58,9 @@ const Nav = async () => {
                     {category.node.posts.map((post) => (
                       <li key={post.id}>
                         <Link
-                          href={category.node.slug + "/" + post.slug}
+                          href={`/${category.node.slug}/${post.slug}`}
                           className="flex px-2"
+                          replace={true}
                         >
                           <Image
                             src={post.featuredImage.url}

@@ -2,6 +2,7 @@ import Hero from "@components/Hero";
 import { Card } from "@components/Card";
 import { getCategories } from "@services";
 import Image from "next/image";
+import Title from "@components/Title";
 
 const HomePage = async () => {
   const categories = await getCategories();
@@ -9,8 +10,8 @@ const HomePage = async () => {
   return (
     <>
       <Hero />
-      <section className="py-11 px-14 flex flex-col items-center">
-        <h2 className="text-4xl font-bold">Get Started</h2>
+      <section className="px-14 flex flex-col items-center">
+        <Title text="Get Started" />
         <div className="grid grid-cols-2 xl:grid-cols-3 w-full xl:w-3/4 2xl:w-2/3 place-items-center justify-center px-8 py-10 gap-24">
           {categories.map((category) => (
             <Card

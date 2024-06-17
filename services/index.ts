@@ -9,7 +9,7 @@ const graphqlClient = new GraphQLClient(
   }
 );
 
-export type CategoryQuery = {
+type CategoryQuery = {
   categoriesConnection: {
     edges: {
       node: {
@@ -31,6 +31,29 @@ export type CategoryQuery = {
       };
     }[];
   };
+};
+
+type PostQuery = {
+  posts: {
+    title: string;
+    content: {
+      raw: {
+        children: (TextSegment | ImageSegment)[];
+      };
+    };
+  }[];
+};
+
+export type TextSegment = {
+  type: "paragraph";
+  children: { text: string }[];
+};
+
+export type ImageSegment = {
+  type: "image";
+  src: string;
+  title: string;
+  handle: string;
 };
 
 export const getCategories = async () => {
@@ -64,3 +87,23 @@ export const getCategories = async () => {
 
   return result.categoriesConnection.edges;
 };
+
+export async function getPost(slug: { slug: string }) {
+  const query: TypedDocumentNode<PostQuery, { slug: string }> = parse(gql`
+    query Posts($slug: String!) {
+      posts(where: { slug: $slug }) {
+        title
+        content {
+          raw
+        }
+      }
+    }
+  `);
+
+  const result = (await graphqlClient.request(query, slug)) satisfies PostQuery;
+
+  return {
+    title: result.posts[0].title,
+    content: result.posts[0].content.raw.children,
+  };
+}
